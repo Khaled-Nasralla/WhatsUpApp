@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:WhatsUpApp.ViewModel"
+             x:Class="WhatsUpApp.View.FriendsPage">
+
+    <ContentPage.BindingContext>
+        <vm:FriendsViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="30">
+        <CollectionView ItemsSource="{Binding Friends}" SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Horizontal">
+                        <Label HorizontalOptions="Start" Text="{Binding Name}" FontSize="Small" />
+                        <Button HorizontalOptions="End" Text="{Binding IsAdded, Converter={StaticResource AddButtonTextConverter}}"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FriendsViewModel}}, Path=AddFriendCommand}"
+                        CommandParameter="{Binding .}">
+                            <Button.Triggers>
+                                <DataTrigger TargetType="Button" Binding="{Binding IsAdded}" Value="true">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Entry Placeholder="Search Friends" Text="{Binding SearchFriends}" />
+        <Button Text="Search" Command="{Binding SearchCommand}" />
+    </StackLayout>
+</ContentPage>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:WhatsUpApp.ViewModel"
+             x:Class="WhatsUpApp.View.MainPage"
+             Title="Chat"
+             BackgroundColor="DarkSeaGreen">
+    <ContentPage.BindingContext>
+        <vm:MainPageViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Search" IconImageSource="search_icon.png" Order="Primary" Priority="0" Command="{Binding SearchCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <CollectionView ItemsSource="{Binding Chats}" SelectionMode="Single" SelectedItem="{Binding SelectedFriend}" Background="Azure">
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <StackLayout Padding="10">
+                    <Label Text="{Binding ReceiverName}" FontSize="Small" />
+                </StackLayout>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+
+</ContentPage>

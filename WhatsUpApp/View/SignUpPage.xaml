@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:WhatsUpApp.ViewModel"
+             x:Class="WhatsUpApp.View.SignUpPage">
+
+    <ContentPage.BindingContext>
+        <vm:SignUpViewModel/>
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout>
+        <Entry Placeholder="Username" Text="{Binding Username}" WidthRequest="300" />
+        <Entry Placeholder="Email" Text="{Binding Email}" WidthRequest="300" />
+        <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}" WidthRequest="300"  />
+        <Entry Placeholder="Confirm Password" IsPassword="True" Text="{Binding ConfirmPassword}" WidthRequest="300"  />
+        <Button Text="Sign Up" Command="{Binding SignUpCommand}" WidthRequest="300"  />
+        <Label Text="{Binding ErorrMessage}" TextColor="Red" />
+    </VerticalStackLayout>
+</ContentPage>

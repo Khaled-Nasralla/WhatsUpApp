@@ -1,0 +1,55 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:WhatsUpApp.View"
+             xmlns:vm="clr-namespace:WhatsUpApp.ViewModel"
+             x:Class="WhatsUpApp.View.ChatPage">
+
+    <ContentPage.BindingContext>
+        <vm:ChatViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+
+        <ResourceDictionary>
+            <DataTemplate x:Key="MyMessageTemplate">
+                <ContentView>
+                    <StackLayout HorizontalOptions="End" BackgroundColor="LightBlue"  Margin="5"  >
+                        <Label Text="{Binding Message}" TextColor="Black" Margin="5" />
+                    </StackLayout>
+                </ContentView>
+
+            </DataTemplate>
+
+            <DataTemplate x:Key="OtherMessageTemplate">
+                <ContentView>
+                    <StackLayout HorizontalOptions="Start" BackgroundColor="LightGray" Margin="5">
+
+                        <Label Text="{Binding Message}" TextColor="Black" Margin="5" />
+
+                    </StackLayout>
+                </ContentView>
+            </DataTemplate>
+
+            <local:MessageTemplateSelector x:Key="MessageTemplateSelector"
+                                           MyMessageTemplate="{StaticResource MyMessageTemplate}"
+                                           OtherMessageTemplate="{StaticResource OtherMessageTemplate}" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="*, Auto">
+            <!-- Messages List -->
+            <CollectionView Grid.Row="0" ItemsSource="{Binding Messages}" ItemTemplate="{StaticResource MessageTemplateSelector}" />
+
+            <!-- Loading Indicator -->
+            <ActivityIndicator Grid.Row="0" IsVisible="{Binding IsLoading}" IsRunning="{Binding IsLoading}" 
+                                VerticalOptions="Center" HorizontalOptions="Center" />
+
+            <!-- Input Section -->
+            <StackLayout Grid.Row="1" Orientation="Horizontal" Padding="10">
+                <Entry Text="{Binding NewMessage}" Placeholder="Type a message..." HorizontalOptions="FillAndExpand" />
+                <Button Command="{Binding SendMessageCommand}" Text="Send" VerticalOptions="Center" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
